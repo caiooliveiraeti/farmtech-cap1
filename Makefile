@@ -1,5 +1,5 @@
 # Default target
-all: exportar_dados calcular_estatisticas
+all: app report
 
 # Target to run the Python script
 app:
