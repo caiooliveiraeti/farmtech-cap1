@@ -12,11 +12,12 @@ def exportar_dados_para_csv(pasta="data"):
         writer = csv.writer(file)
         
         # Escrever cabeçalho
-        writer.writerow(["Tipo", "Cultura", "Area", "Dimensoes"])
+        writer.writerow(["ID", "Tipo", "Cultura", "Area", "Dimensoes"])
         
         # Escrever dados de plantios
         for plantio in plantios:
             writer.writerow([
+                plantio["id"],
                 "Plantio",
                 plantio["cultura"],
                 plantio["area"],
@@ -29,11 +30,13 @@ def exportar_dados_para_csv(pasta="data"):
         writer = csv.writer(file)
         
         # Escrever cabeçalho
-        writer.writerow(["Tipo", "Cultura", "Produto", "Quantidade", "QuantidadeTotal"])
+        writer.writerow(["ID", "PlantioID", "Tipo", "Cultura", "Produto", "Quantidade", "QuantidadeTotal"])
         
         # Escrever dados de manejos
         for manejo in manejos:
             writer.writerow([
+                manejo["id"],
+                manejo["plantio_id"],
                 "Manejo",
                 manejo["cultura"],
                 manejo["produto"],

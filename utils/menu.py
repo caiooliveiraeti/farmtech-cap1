@@ -1,8 +1,8 @@
 import signal
 import sys
 from models.data import culturas_config, plantios, manejos
-from services.area import registrar_area_plantio, listar_plantios
-from services.manejo import registrar_manejo, listar_manejos
+from services.area import registrar_area_plantio, listar_plantios, deletar_plantio
+from services.manejo import registrar_manejo, listar_manejos, deletar_manejo
 from services.cultura import listar_culturas
 from services.exporter import exportar_dados_para_csv
 
@@ -16,12 +16,16 @@ def menu_principal():
     while True:
         print("\n===== FarmTech Solutions =====")
         print("1. Listar culturas disponíveis")
-        print("2. Calcular área de plantio")
-        print("3. Listar plantios registrados")
-        print("4. Manejo de insumos")
-        print("5. Listar manejos de insumos")
-        print("6. Exportar dados para CSV")
-        print("7. Sair")
+        print("2. Registrar área de plantio")
+        print("3. Listar plantios")
+        print("4. Deletar plantio")
+
+        print("5. Registrar Manejo de insumos")
+        print("6. Listar manejos de insumos")
+        print("7. Deletar manejo")
+        
+        print("8. Exportar dados para CSV")
+        print("9. Sair")
 
         opcao = input("Escolha uma opção: ")
 
@@ -32,13 +36,20 @@ def menu_principal():
         elif opcao == "3":
             listar_plantios()
         elif opcao == "4":
-            registrar_manejo()
+            deletar_plantio()
+
         elif opcao == "5":
-            listar_manejos()
+            registrar_manejo()
         elif opcao == "6":
+            listar_manejos()
+        elif opcao == "7":
+            deletar_manejo()
+
+        elif opcao == "8":
             nome_arquivo = input("Informe o diretório para os arquivos CSV: ")
             exportar_dados_para_csv(nome_arquivo)
-        elif opcao == "7":
+
+        elif opcao == "9":
             print("Encerrando o programa. Até mais!")
             break
         else:

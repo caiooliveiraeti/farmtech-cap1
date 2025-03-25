@@ -1,4 +1,5 @@
 import math
+import uuid
 from services.cultura import listar_culturas
 
 def calcular_area(cultura):
@@ -33,7 +34,10 @@ def registrar_area_plantio():
     cultura = culturas_config[idx]
     area, dimensoes_valores = calcular_area(cultura)
 
+    novo_id = str(uuid.uuid4())
+
     registro = {
+        "id": novo_id,
         "cultura": cultura["nome"],
         "area": area,
         "dimensoes": dimensoes_valores
@@ -54,3 +58,17 @@ def listar_plantios():
         print(f"{idx}. Cultura: {plantio['cultura']}")
         print(f"   Área: {plantio['area']:.2f} m²")
         print(f"   Dimensões fornecidas: {plantio['dimensoes']}")
+
+
+def deletar_plantio():
+    from models.data import plantios, manejos
+    listar_plantios()
+    if not plantios:
+        return
+    idx = int(input("Escolha o índice do plantio para deletar: "))
+    if 0 <= idx < len(plantios):
+        plantio = plantios.pop(idx)
+        manejos[:] = [m for m in manejos if m.get("plantio_id") != plantio["id"]]
+        print("✅ Plantio e seus manejos associados foram deletados!")
+    else:
+        print("Índice inválido!")

@@ -1,3 +1,5 @@
+import uuid
+
 def calcular_manejo(area, cultura_nome):
     print(f"\nManejo de insumos para a cultura: {cultura_nome}")
     produto = input("Informe o nome do produto: ")
@@ -33,6 +35,8 @@ def registrar_manejo():
     plantio = plantios[idx]
     manejo = calcular_manejo(plantio['area'], plantio['cultura'])
     manejo["cultura"] = plantio['cultura']
+    manejo["plantio_id"] = plantio['id']
+    manejo["id"] = str(uuid.uuid4())
 
     manejos.append(manejo)
     print("✅ Manejo registrado com sucesso!")
@@ -49,3 +53,15 @@ def listar_manejos():
         print(f"   Produto: {manejo['produto']}")
         print(f"   Quantidade por m²: {manejo['quantidade_por_metro']} mL")
         print(f"   Quantidade total: {manejo['quantidade_total']:.2f} mL")
+
+def deletar_manejo():
+    from models.data import manejos
+    listar_manejos()
+    if not manejos:
+        return
+    idx = int(input("Escolha o índice do manejo para deletar: "))
+    if 0 <= idx < len(manejos):
+        manejos.pop(idx)
+        print("✅ Manejo deletado com sucesso!")
+    else:
+        print("Índice inválido!")
